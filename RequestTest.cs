@@ -1,11 +1,11 @@
-﻿using System;
+﻿using ConquestTests.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using ConquestTests.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 
 namespace ConquestTests
 {
@@ -37,8 +37,8 @@ namespace ConquestTests
             // Address SSL and TLS security issue.
             #region
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 |
-                                                    SecurityProtocolType.Tls | 
-                                                    SecurityProtocolType.Tls11 | 
+                                                    SecurityProtocolType.Tls |
+                                                    SecurityProtocolType.Tls11 |
                                                     SecurityProtocolType.Tls12;
             #endregion
 
@@ -82,6 +82,7 @@ namespace ConquestTests
             HierachyNode node = new HierachyNode() { IncludeAncestors = true, IncludeChildren = true, IncludeDescendents = 0, IncludeSiblings = true, IncludeSubItems = true };
             node.ObjectKey = new ObjectKey() { ObjectType = "ObjectType_OrganisationUnit" };
             //ObjectKey objKey = new ObjectKey() { ObjectType = "ObjectType_OrganisationUnit" };
+            var json = JsonConvert.SerializeObject(node);
 
             HttpResponseMessage response = await client.PostAsJsonAsync(API_HIERACHY, "{\"ObjectKey\":{\"objectType\":\"ObjectType_OrganisationUnit\"}}");
             if (!response.IsSuccessStatusCode)
