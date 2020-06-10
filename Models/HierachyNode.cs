@@ -27,19 +27,4 @@ namespace ConquestTests.Models
         [JsonProperty("ObjectKey")]
         public ObjectKey ObjectKey { get; set; }
     }
-
-    public class ObjectKey
-    {
-        [JsonProperty("int32Value")]
-        public long Int32Value { get; set; }
-
-        [JsonProperty("objectType")]
-        public string ObjectType { get; set; }
-
-        [JsonProperty("stringValue")]
-        public string StringValue { get; set; }
-
-        [JsonProperty("timestampValue")]
-        public DateTimeOffset TimestampValue { get; set; }
-    }
 }

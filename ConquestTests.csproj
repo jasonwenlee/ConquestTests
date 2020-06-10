@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\HierachyNode.cs" />
+    <Compile Include="Models\ObjectKey.cs" />
     <Compile Include="RequestTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

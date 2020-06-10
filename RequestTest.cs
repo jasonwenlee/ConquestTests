@@ -62,7 +62,7 @@ namespace ConquestTests
         public async System.Threading.Tasks.Task CreateRequestAsync()
         {
             var ACCESS_TOKEN = "RO7B15hxNvRZGasvXOR9G/10+Jk=";
-            var APIHIERACHYNODES = "/api/list_hierarchy_nodes";
+            var API_HIERACHY = "/api/list_hierarchy_nodes";
             string responseDetail = "";
             HttpClient client = new HttpClient
             {
@@ -79,13 +79,15 @@ namespace ConquestTests
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ACCESS_TOKEN);
 
-            ObjectKey key = new ObjectKey() { Int32Value = 0, ObjectType = "ObjectType_OrganisationUnit", StringValue = "string", TimestampValue = DateTime.Now };
-            HierachyNode node = new HierachyNode() { IncludeAncestors = true, IncludeChildren = true, IncludeDescendents = 0, IncludeSiblings = true, IncludeSubItems = true };
-            node.ObjectKey = key;
-            var json = JsonConvert.SerializeObject(node);
+            //HierachyNode node = new HierachyNode() { IncludeAncestors = true, IncludeChildren = true, IncludeDescendents = 0, IncludeSiblings = true, IncludeSubItems = true };
+            //node.ObjectKey = new ObjectKey() { Int32Value = 0, ObjectType = "ObjectType_OrganisationUnit" };
+
+            ObjectKey objKey = new ObjectKey() { ObjectType = "ObjectType_OrganisationUnit" };
+            
+            var json = JsonConvert.SerializeObject(objKey);
 
             Debug.WriteLine(json);
-            HttpResponseMessage response = await client.PostAsJsonAsync(APIHIERACHYNODES,json);
+            HttpResponseMessage response = await client.PostAsJsonAsync(API_HIERACHY, json);
             if (!response.IsSuccessStatusCode)
             {
                 throw new System.ArgumentException(response.StatusCode.ToString(), "original");
