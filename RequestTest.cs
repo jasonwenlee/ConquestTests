@@ -131,7 +131,7 @@ namespace ConquestTests
 
             // Upload Document to File for request
             DocDataObject docDataObject = JsonConvert.DeserializeObject<DocDataObject>(createDocumentResponse.Content.ReadAsStringAsync().Result);
-            HttpResponseMessage uploadDocumentResponse = await client.PostAsJsonAsync(docDataObject.UploadUri, docDataObject.Document);
+            HttpResponseMessage uploadDocumentResponse = await client.PutAsJsonAsync(docDataObject.UploadUri, "Hello this is another test");
             // Check response
             if (!uploadDocumentResponse.IsSuccessStatusCode)
             {
