@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -15,6 +16,9 @@ namespace ConquestTests
     [TestClass]
     public class RequestTest
     {
+        /**
+         * This method test getting a request using requestID
+         */
         [TestMethod]
         public async System.Threading.Tasks.Task GetRequestAsync()
         {
@@ -52,12 +56,19 @@ namespace ConquestTests
             Debug.WriteLine(response);
         }
 
+        /**
+         * This method test creating a request WITH file upload. Document attach to request.
+         * This simulates a user interaction:
+         * 1. User creates request.
+         * 2. User uploads a document along with the request.
+         */
         [TestMethod]
         public async System.Threading.Tasks.Task CreateRequestAsync()
         {
             var ACCESS_TOKEN = WebConfigurationManager.AppSettings["access_token"];
             var API_LIST_HIERACHY = WebConfigurationManager.AppSettings["api_list_hierachy"];
             var API_CREATE_REQUEST = WebConfigurationManager.AppSettings["api_create_request"];
+            var API_ADD_DOCUMENT = WebConfigurationManager.AppSettings["api_add_document"];
             string responseDetail = "";
 
             HttpClient client = new HttpClient
@@ -76,7 +87,7 @@ namespace ConquestTests
 
             // Post object type as get organisation unit to a list of units.
             HierachyNode node = new HierachyNode() { IncludeAncestors = true, IncludeChildren = true, IncludeDescendents = 0, IncludeSiblings = true, IncludeSubItems = true };
-            node.ObjectKey = new ObjectKey() { ObjectType = "ObjectType_OrganisationUnit", Int32Value=0 };
+            node.ObjectKey = new ObjectKey() { ObjectType = "ObjectType_OrganisationUnit", Int32Value = 0 };
             // POST request
             HttpResponseMessage response = await client.PostAsJsonAsync(API_LIST_HIERACHY, node);
             // Check response
@@ -106,6 +117,36 @@ namespace ConquestTests
             // Get request ID
             string requestID = createUserResponse.Content.ReadAsStringAsync().Result;
             Debug.WriteLine(String.Format("Request ID: {0}    |     Organisation Name: {1}", requestID, netObjects.Headers[0].ObjectName));
+
+            // Create Document for chosen Request. Change path to "Request" and use requestID.
+            Document document = new Document() { DocumentDescription = "This is a request", Address = $"file://conquest_documents/Request/{requestID}/JasonTestDocument.txt", ContentType = "text/plain", };
+            document.ObjectKey = new ObjectKey() { ObjectType = "ObjectType_Request", Int32Value = int.Parse(requestID) };
+            HttpResponseMessage createDocumentResponse = await client.PostAsJsonAsync(API_ADD_DOCUMENT, document);
+            // Check response
+            if (!createDocumentResponse.IsSuccessStatusCode)
+            {
+                throw new System.ArgumentException(createDocumentResponse.StatusCode.ToString(), "original");
+            }
+            Debug.WriteLine(createDocumentResponse.Content.ReadAsStringAsync().Result);
+
+            // Upload Document for request
+            string uploadUrl = "";
+            Dictionary<string,dynamic> netObject = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(createDocumentResponse.Content.ReadAsStringAsync().Result);
+            if (netObject.TryGetValue("UploadUri", out dynamic value))
+            {
+                uploadUrl = Convert.ToString(value);
+            }
+            else
+            {
+                throw new System.ArgumentException("No upload url found", "original");
+            }
+            HttpResponseMessage uploadDocumentResponse = await client.PostAsJsonAsync(uploadUrl, document);
+            // Check response
+            if (!uploadDocumentResponse.IsSuccessStatusCode)
+            {
+                throw new System.ArgumentException(createDocumentResponse.StatusCode.ToString(), "original");
+            }
+
         }
     }
 }

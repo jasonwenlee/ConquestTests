@@ -39,6 +39,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\Conquest\packages\MSTest.TestFramework.2.1.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -61,14 +62,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\AllHeaders.cs" />
-    <Compile Include="Models\Asset.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\HierachyNode.cs" />
     <Compile Include="Models\ObjectKey.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="RequestTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FileUploadTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
