@@ -118,10 +118,10 @@ namespace ConquestTests
             string requestID = createUserResponse.Content.ReadAsStringAsync().Result;
             Debug.WriteLine(String.Format("Request ID: {0}    |     Organisation Name: {1}", requestID, netObjects.Headers[0].ObjectName));
 
-            // Create Document for chosen Request. Change path to "Request" and use requestID.
-            Document document = new Document() { DocumentDescription = "This is a request", Address = $"file://conquest_documents/Request/{requestID}/JasonTestDocument.txt", ContentType = "text/plain", };
-            document.ObjectKey = new ObjectKey() { ObjectType = "ObjectType_Request", Int32Value = int.Parse(requestID) };
-            HttpResponseMessage createDocumentResponse = await client.PostAsJsonAsync(API_ADD_DOCUMENT, document);
+            // Create File for chosen Request. Change path to "Request" and use requestID.
+            File file = new File() { DocumentDescription = "This is a request", Address = $"file://conquest_documents/Request/{requestID}/JasonTestDocument.txt", ContentType = "text/plain", };
+            file.ObjectKey = new ObjectKey() { ObjectType = "ObjectType_Request", Int32Value = int.Parse(requestID) };
+            HttpResponseMessage createDocumentResponse = await client.PostAsJsonAsync(API_ADD_DOCUMENT, file);
             // Check response
             if (!createDocumentResponse.IsSuccessStatusCode)
             {
@@ -129,24 +129,14 @@ namespace ConquestTests
             }
             Debug.WriteLine(createDocumentResponse.Content.ReadAsStringAsync().Result);
 
-            // Upload Document for request
-            string uploadUrl = "";
-            Dictionary<string,dynamic> netObject = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(createDocumentResponse.Content.ReadAsStringAsync().Result);
-            if (netObject.TryGetValue("UploadUri", out dynamic value))
-            {
-                uploadUrl = Convert.ToString(value);
-            }
-            else
-            {
-                throw new System.ArgumentException("No upload url found", "original");
-            }
-            HttpResponseMessage uploadDocumentResponse = await client.PostAsJsonAsync(uploadUrl, document);
+            // Upload Document to File for request
+            DocDataObject docDataObject = JsonConvert.DeserializeObject<DocDataObject>(createDocumentResponse.Content.ReadAsStringAsync().Result);
+            HttpResponseMessage uploadDocumentResponse = await client.PostAsJsonAsync(docDataObject.UploadUri, docDataObject.Document);
             // Check response
             if (!uploadDocumentResponse.IsSuccessStatusCode)
             {
                 throw new System.ArgumentException(createDocumentResponse.StatusCode.ToString(), "original");
             }
-
         }
     }
 }

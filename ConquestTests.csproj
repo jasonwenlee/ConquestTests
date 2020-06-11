@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\File.cs" />
     <Compile Include="Models\AllHeaders.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\HierachyNode.cs" />
