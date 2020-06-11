@@ -9,10 +9,10 @@ namespace ConquestTests.Models
 {
     public class Asset
     {
-        [JsonProperty("AssetDescription")]
+        [JsonProperty("AssetDescription", NullValueHandling = NullValueHandling.Ignore)]
         public string AssetDescription { get; set; }
 
-        [JsonProperty("Proposed")]
+        [JsonProperty("Proposed", NullValueHandling = NullValueHandling.Ignore)]
         public bool Proposed { get; set; }
     }
 }

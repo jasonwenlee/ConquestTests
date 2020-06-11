@@ -9,22 +9,22 @@ namespace ConquestTests.Models
 {
     public class HierachyNode
     {
-        [JsonProperty("IncludeAncestors")]
+        [JsonProperty("IncludeAncestors", NullValueHandling = NullValueHandling.Ignore)]
         public bool IncludeAncestors { get; set; }
 
-        [JsonProperty("IncludeChildren")]
+        [JsonProperty("IncludeChildren", NullValueHandling = NullValueHandling.Ignore)]
         public bool IncludeChildren { get; set; }
 
-        [JsonProperty("IncludeDescendents")]
+        [JsonProperty("IncludeDescendents", NullValueHandling = NullValueHandling.Ignore)]
         public long IncludeDescendents { get; set; }
 
-        [JsonProperty("IncludeSiblings")]
+        [JsonProperty("IncludeSiblings", NullValueHandling = NullValueHandling.Ignore)]
         public bool IncludeSiblings { get; set; }
 
-        [JsonProperty("IncludeSubItems")]
+        [JsonProperty("IncludeSubItems", NullValueHandling = NullValueHandling.Ignore)]
         public bool IncludeSubItems { get; set; }
 
-        [JsonProperty("ObjectKey")]
+        [JsonProperty("ObjectKey", NullValueHandling = NullValueHandling.Ignore)]
         public ObjectKey ObjectKey { get; set; }
     }
 }

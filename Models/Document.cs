@@ -9,22 +9,22 @@ namespace ConquestTests.Models
 {
     public class Document
     {
-        [JsonProperty("Address")]
+        [JsonProperty("Address", NullValueHandling = NullValueHandling.Ignore)]
         public string Address { get; set; }
 
-        [JsonProperty("ContentType")]
+        [JsonProperty("ContentType", NullValueHandling = NullValueHandling.Ignore)]
         public string ContentType { get; set; }
 
-        [JsonProperty("CreateTime")]
+        [JsonProperty("CreateTime", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset CreateTime { get; set; }
 
-        [JsonProperty("DocumentDescription")]
+        [JsonProperty("DocumentDescription", NullValueHandling = NullValueHandling.Ignore)]
         public string DocumentDescription { get; set; }
 
-        [JsonProperty("Hashes")]
+        [JsonProperty("Hashes", NullValueHandling = NullValueHandling.Ignore)]
         public object Hashes { get; set; }
 
-        [JsonProperty("ObjectKey")]
+        [JsonProperty("ObjectKey", NullValueHandling = NullValueHandling.Ignore)]
         public ObjectKey ObjectKey { get; set; }
     }
 }

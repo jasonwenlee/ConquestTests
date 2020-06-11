@@ -5,16 +5,16 @@ namespace ConquestTests.Models
 {
     public class ObjectKey
     {
-        [JsonProperty("int32Value")]
+        [JsonProperty("int32Value", NullValueHandling = NullValueHandling.Ignore)]
         public int Int32Value { get; set; }
 
-        [JsonProperty("objectType")]
+        [JsonProperty("objectType", NullValueHandling = NullValueHandling.Ignore)]
         public string ObjectType { get; set; }
 
-        [JsonProperty("stringValue")]
-        public string StringValue { get; set; }
+        //[JsonProperty("stringValue", NullValueHandling = NullValueHandling.Ignore)]
+        //public string StringValue { get; set; }
 
-        [JsonProperty("timestampValue")]
-        public DateTimeOffset TimestampValue { get; set; }
+        //[JsonProperty("timestampValue", NullValueHandling = NullValueHandling.Ignore)]
+        //public DateTimeOffset TimestampValue { get; set; }
     }
 }

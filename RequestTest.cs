@@ -76,7 +76,7 @@ namespace ConquestTests
 
             // Post object type as get organisation unit to a list of units.
             HierachyNode node = new HierachyNode() { IncludeAncestors = true, IncludeChildren = true, IncludeDescendents = 0, IncludeSiblings = true, IncludeSubItems = true };
-            node.ObjectKey = new ObjectKey() { ObjectType = "ObjectType_OrganisationUnit" };
+            node.ObjectKey = new ObjectKey() { ObjectType = "ObjectType_OrganisationUnit", Int32Value=0 };
             // POST request
             HttpResponseMessage response = await client.PostAsJsonAsync(API_LIST_HIERACHY, node);
             // Check response

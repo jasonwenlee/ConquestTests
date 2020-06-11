@@ -49,11 +49,9 @@ namespace ConquestTests
 
             // Create Document for chosen Asset
             Document document = new Document() { DocumentDescription="C# document", Address=$"file://conquest_documents/Asset/{assetID}/JasonTestDocument.txt", ContentType="text/plain", };
-            document.ObjectKey = new ObjectKey() { ObjectType = "ObjectType_Asset", Int32Value = int.Parse(assetID), };
-
+            document.ObjectKey = new ObjectKey() { ObjectType = "ObjectType_Asset", Int32Value=int.Parse(assetID) };
             // POST newly created document to asset
             HttpResponseMessage createDocumentResponse = await client.PostAsJsonAsync(API_ADD_DOCUMENT, document);
-            var json = JsonConvert.SerializeObject(document);
             // Check response
             if (!createDocumentResponse.IsSuccessStatusCode)
             {

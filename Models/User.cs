@@ -9,33 +9,33 @@ namespace ConquestTests.Models
 {
     public class User
     {
-        [JsonProperty("ChangeSet")]
+        [JsonProperty("ChangeSet", NullValueHandling = NullValueHandling.Ignore)]
         public ChangeSet ChangeSet { get; set; }
     }
     public class ChangeSet
     {
-        [JsonProperty("Changes")]
+        [JsonProperty("Changes", NullValueHandling = NullValueHandling.Ignore)]
         public string[] Changes { get; set; }
 
-        [JsonProperty("LastEdit")]
+        [JsonProperty("LastEdit", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset LastEdit { get; set; }
 
-        [JsonProperty("Updated")]
+        [JsonProperty("Updated", NullValueHandling = NullValueHandling.Ignore)]
         public Updated Updated { get; set; }
     }
 
     public class Updated
     {
-        [JsonProperty("EntryDate")]
+        [JsonProperty("EntryDate", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset EntryDate { get; set; }
 
-        [JsonProperty("OrganisationUnitID")]
+        [JsonProperty("OrganisationUnitID", NullValueHandling = NullValueHandling.Ignore)]
         public int OrganisationUnitID { get; set; }
 
-        [JsonProperty("RequestDetail")]
+        [JsonProperty("RequestDetail", NullValueHandling = NullValueHandling.Ignore)]
         public string RequestDetail { get; set; }
 
-        [JsonProperty("RequestorName")]
+        [JsonProperty("RequestorName", NullValueHandling = NullValueHandling.Ignore)]
         public string RequestorName { get; set; }
     }
 }

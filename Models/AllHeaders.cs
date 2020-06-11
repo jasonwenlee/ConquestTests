@@ -9,17 +9,17 @@ namespace ConquestTests.Models
 {
     public class AllHeaders
     {
-        [JsonProperty("Headers")]
+        [JsonProperty("Headers", NullValueHandling = NullValueHandling.Ignore)]
         public Header[] Headers { get; set; }
     }
 
     public class Header
     {
-        [JsonProperty("ObjectName")]
+        [JsonProperty("ObjectName", NullValueHandling = NullValueHandling.Ignore)]
         public string ObjectName { get; set; }
-        [JsonProperty("ObjectKey")]
+        [JsonProperty("ObjectKey", NullValueHandling = NullValueHandling.Ignore)]
         public ObjectKey ObjectKey { get; set; }
-        [JsonProperty("ParentKey")]
+        [JsonProperty("ParentKey", NullValueHandling = NullValueHandling.Ignore)]
         public ObjectKey ParentKey { get; set; }
     }
 }
