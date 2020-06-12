@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConquestTests.Models
 {
-    public class File
+    public class DocContainer
     {
         [JsonProperty("Address", NullValueHandling = NullValueHandling.Ignore)]
         public string Address { get; set; }
@@ -19,9 +19,7 @@ namespace ConquestTests.Models
         public string DocumentDescription { get; set; }
         [JsonProperty("Hashes", NullValueHandling = NullValueHandling.Ignore)]
         public object Hashes { get; set; }
-
         [JsonProperty("ObjectKey", NullValueHandling = NullValueHandling.Ignore)]
         public ObjectKey ObjectKey { get; set; }
-
     }
 }
